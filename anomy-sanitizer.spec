@@ -1,11 +1,11 @@
 Summary:	Anomy Sanitizer
 Name:		anomy-sanitizer
-Version:	1.54
+Version:	1.76
 Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://mailtools.anomy.net/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	977b20b2ecf47622b05f1933fad18a41
+# Source0-md5:	1f53b7da3cc4f3d78631546335ff9dcd
 URL:		http://mailtools.anomy.net/
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -29,9 +29,8 @@ Other things it can do:
   resource intensive and outdated virus scanning solutions.
 
 %prep
-%setup -q -n anomy
-
-%build
+%setup -qc
+mv anomy/* .
 
 %install
 rm -rf $RPM_BUILD_ROOT
