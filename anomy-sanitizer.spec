@@ -1,3 +1,4 @@
+%include	/usr/lib/rpm/macros.perl
 Summary:	Anomy Sanitizer
 Name:		anomy-sanitizer
 Version:	1.76
@@ -7,6 +8,7 @@ Group:		Applications/Mail
 Source0:	http://mailtools.anomy.net/dist/%{name}-%{version}.tar.gz
 # Source0-md5:	1f53b7da3cc4f3d78631546335ff9dcd
 URL:		http://mailtools.anomy.net/
+BuildRequires:	rpm-perlprov >= 4.1-13
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -34,13 +36,23 @@ mv anomy/* .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{perl_vendorlib}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{perl_vendorlib}}
 cp -a bin/Anomy $RPM_BUILD_ROOT%{perl_vendorlib}/Anomy
+
+for a in bin/*.pl; do
+	f=${a#*/}
+	f=anomy-${f%.pl}
+	install -p $a $RPM_BUILD_ROOT%{_bindir}/$f
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGELOG.sanitizer CREDITS README.sanitizer sanitizer.html
+%doc CHANGELOG.sanitizer CREDITS README.sanitizer sanitizer.html UNICODE.TXT
+%doc contrib
+%attr(755,root,root) %{_bindir}/anomy-mailblogger
+%attr(755,root,root) %{_bindir}/anomy-sanitizer
+%attr(755,root,root) %{_bindir}/anomy-simplify
 %{perl_vendorlib}/Anomy
