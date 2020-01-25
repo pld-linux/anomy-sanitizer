@@ -1,4 +1,3 @@
-%include	/usr/lib/rpm/macros.perl
 Summary:	Anomy Sanitizer
 Name:		anomy-sanitizer
 Version:	1.76
